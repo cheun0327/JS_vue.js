@@ -1,0 +1,31 @@
+{
+  "name": "vue-lecture",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "choibumsu",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^9.7.5",
+    "axios": "^0.19.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "node-sass": "^4.13.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {
+        "overrideBrowserslist": [
+          "> 1%",
+          "last 4 versions"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Practice</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .strong{
+        color: hotpink;
+      }
+      .clicked{
+        background-color: pink;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- <div id="app">
+      <div v-on:click = "alertMessage()">{{ message }}</div> <!--django탬플릿이랑 충돌 [[]]로 쓸 수 있는문법있-->
+
+      <!-- <input v-model="message" /> input,textarea/v-model:vue객체로 바로전달. 변수도 바로바뀜 -->
+
+      <!-- <div>{{ reversedMessage }}</div> computed때문에 함수이지만 변수처럼 사용가능 -->
+
+      <!-- <div v-bind:class="className">HI~!~!</div>v-bink = html 속성을 치환 -->
+<!--
+      <div v-if="isShow" class="strong">Show!!</div>
+      <hr/>
+
+      <div v-for="item in list" :key="item">
+        {{ item }}
+      </div>
+      <hr/>
+
+      <button v-bind:class="{ clicked: isClicked }" v-on:click="clickBtn()">BTN</button>
+
+    </div> -->
+    <div id = "app">
+      <div v-for="movie in movieList" :key="movie.id">
+        <div>
+          <a :href="getTrailerLink(movie.yt_trailer_code)" target="_blank">
+            {{ movie.title }}
+          </a>
+        </div>
+
+        <img v-on:click="fetchDetails(movie.id)" :src="movie.medium_cover_image" width = "40%"/>
+
+        <div v-for="genre in movie.genres" :key="genre">
+          {{ genre }}
+        </div>
+        <br/>
+        <br/>
+        <hr/>
+      </div>
+
+    </div>
+    <script src="src/js/main.js"></script>
+  </body>
+</html>
