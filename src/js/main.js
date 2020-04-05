@@ -193,27 +193,29 @@ const app=new Vue({
 
         console.log(this.movieList);
     },
-    methods:{
+    methods: {
         getTrailerLink(code) {
-            return `https://www.youtube.com/watch?v=${code}`;
-          },
-        async fetchDetails(movieId){
-            const suggestionResponse = await axios
-            .get(`https://yts.mx/api/v2/movie_suggestions.json?movie_id=${movieId}`
+          return `https://www.youtube.com/watch?v=${code}`;
+        },
+        async fetchDetails(movieId) {
+          this.isDetail = false;
+    
+          const suggestionResponse = await axios.get(
+            `https://yts.mx/api/v2/movie_suggestions.json?movie_id=${movieId}`
+          );
+          console.log(suggestionResponse);
+          this.suggestedMovies = suggestionResponse.data.data.movies;
+    
+          const promises = this.suggestedMovies.map(async (movie) => {
+            const detailResponse = await axios.get(
+              `https://yts.mx/api/v2/movie_details.json?movie_id=${movie.id}`
             );
-            console.log(suggestionResponse);
-            this.suggestedMovies = suggestionResponse.data.data.movies;
-
-            //여기는 비동기로 처리한다. 
-            const promises = this.suggestedMovies.map(async(movie) => {
-                const detailResponse = axios.get(
-                        `https://yts.mx/api/v2/movie_details.json?movie_id=${movie.id}`
-                );
-                movie["download_count"] = detailResponse.data.data.movie.download_count;
-                console.log(detailResponse);
-            })
-
-            await Promise.all(promises); //promise객체들이 끝나는 걸 기다린다. 끝나는 순간을 포착한다.
+            movie["download_count"] = detailResponse.data.data.movie.download_count;
+            console.log(detailResponse);
+          });
+          await Promise.all(promises);//promise객체들이 끝나는 걸 기다린다. 끝나는 순간을 포착한다.
+    
+          this.isDetail = true;
             //for로하면 전체가 직렬적으로 처리되는데 map사용해서 promise 객체들을 반환하고 promiseall로 하면 더 빠르다.
 
 

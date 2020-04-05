@@ -37,7 +37,15 @@
       <button v-bind:class="{ clicked: isClicked }" v-on:click="clickBtn()">BTN</button>
 
     </div> -->
-    <div id = "app">
+    <div id="app">
+      <div v-if="isDetail">
+        <div>관련 영화</div>
+        <div v-for="movie in suggestedMovies" :key="movie.id">
+          <strong>{{ movie.title }}</strong> ({{ movie.download_count }})
+        </div>
+        <br />
+        <hr />
+      </div>
       <div v-for="movie in movieList" :key="movie.id">
         <div>
           <a :href="getTrailerLink(movie.yt_trailer_code)" target="_blank">
@@ -45,16 +53,20 @@
           </a>
         </div>
 
-        <img v-on:click="fetchDetails(movie.id)" :src="movie.medium_cover_image" width = "40%"/>
+        <img
+          @click="fetchDetails(movie.id)"
+          :src="movie.medium_cover_image"
+          width="40%"
+        />
 
         <div v-for="genre in movie.genres" :key="genre">
           {{ genre }}
         </div>
-        <br/>
-        <br/>
-        <hr/>
-      </div>
 
+        <br />
+        <br />
+        <hr />
+      </div>
     </div>
     <script src="src/js/main.js"></script>
   </body>
